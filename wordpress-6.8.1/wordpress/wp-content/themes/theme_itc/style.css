@@ -1,0 +1,15 @@
+/*
+ Theme Name: ITC ECOMMERCE
+ Theme URI: https://www.udemy.com/home/my-courses/learning/
+ Author: liffdomotic
+ Author URI: https://www.google.com/
+ Description: Test para el curso UDEMY
+ Version: 9.12.18
+ License: GNU General Public License v2 or later
+ License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ Tags: php, wordpress, bootstrap, ecommerce, itc
+ Text Domain: itc_ecommerce
+*/
+.justificado{
+    text-align: justify;
+}
