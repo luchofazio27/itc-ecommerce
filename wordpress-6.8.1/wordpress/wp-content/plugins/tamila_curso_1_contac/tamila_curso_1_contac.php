@@ -195,6 +195,7 @@ if(!function_exists('tamila_curso_1_contact_display')){
         }
     </script>
         <?php
+		$nonce = wp_create_nonce('seg');
         $html='';
         $html.='<div class="container"><form action="" method="POST" name="tamila_curso_1_contact_form">';
        
