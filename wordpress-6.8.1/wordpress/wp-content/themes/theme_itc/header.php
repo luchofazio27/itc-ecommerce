@@ -44,7 +44,7 @@ if(!defined('ABSPATH')) die();
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="<?php echo get_site_url();?>">
                  <img class="logo-tienda" src="<?php echo get_template_directory_uri() ?>/assets/images/logo.png" title="<?php bloginfo('name'); ?>" alt="<?php bloginfo('name'); ?>" />
             </a>
 
