@@ -2,7 +2,7 @@
 if(!defined('ABSPATH')) die();
 global $wpdb;
 $tabla="{$wpdb->prefix}itc_contact";
-$table2="{$wpdb->prefix}itc_contact_respuestas";
+$tabla2="{$wpdb->prefix}itc_contact_respuestas";
 if(isset($_POST['nonce'])){
     switch($_POST['accion']){
         case '1':
