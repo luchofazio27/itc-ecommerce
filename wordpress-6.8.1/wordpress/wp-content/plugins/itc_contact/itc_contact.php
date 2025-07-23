@@ -87,8 +87,8 @@ if (!function_exists('itc_contact_menu')) {
     function itc_contact_menu()
     {
         add_menu_page(
-            "ITC form contact",
-            "ITC form contact",
+            "ITC Form Contact",
+            "ITC Form Contact",
             "manage_options",
             plugin_dir_path(__FILE__) . "includes/listar.php",
             null,
