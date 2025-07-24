@@ -13,12 +13,13 @@ Text Domain: itc_tienda
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/init.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/bloquear.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/slide.php';
 
 if (!defined('ABSPATH')) die();
 if(!function_exists('itc_tienda_instalar')){
     function itc_tienda_instalar(){
         itc_tienda_init();
-        
+        itc_tienda_slide_init();
     }
 }
 if(!function_exists('itc_tienda_desactivar')){

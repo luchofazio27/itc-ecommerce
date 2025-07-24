@@ -7,7 +7,7 @@ function validaCorreo(valor) {
 }
  
  function confirmaAlert(pregunta, ruta) {
-     jCustomConfirm(pregunta, 'Tamila', 'Aceptar', 'Cancelar', function(r) {
+     jCustomConfirm(pregunta, 'ITC', 'Aceptar', 'Cancelar', function(r) {
          if (r) {
              window.location = ruta;
          }
@@ -73,7 +73,7 @@ function validaCorreo(valor) {
             type: "POST",
             url: datosajax.url,
             data:{
-                action : "tamila_form_contact_respuestas_ajax",
+                action : "itc_form_contact_respuestas_ajax",
                 nonce : datosajax.nonce,
                 id: id,
             },
@@ -88,20 +88,20 @@ function validaCorreo(valor) {
  }
  function get_crear_formulario(que, title, nombre, correo, id){
     jQuery(document).ready(function($){
-        $("#tamila_galeria_crear").modal("show"); 
-        document.getElementById('tamila_galeria_crear_title').innerHTML=title;
-        document.getElementById('tamila_galeria_nombre').value=nombre;
+        $("#itc_galeria_crear").modal("show"); 
+        document.getElementById('itc_galeria_crear_title').innerHTML=title;
+        document.getElementById('itc_galeria_nombre').value=nombre;
         if(que=='1'){
-            document.getElementById('tamila_galeria_que').value='1';
+            document.getElementById('itc_galeria_que').value='1';
         }else{
-            document.getElementById('tamila_galeria_que').value='2';
-            document.getElementById('tamila_galeria_id').value=id;
+            document.getElementById('itc_galeria_que').value='2';
+            document.getElementById('itc_galeria_id').value=id;
             
         }
     });
  }
- function tamila_galeria_crear(){
-    var form=document.tamila_galeria_crear_form;
+ function itc_galeria_crear(){
+    var form=document.itc_galeria_crear_form;
     if(form.nombre.value==0)
     { 
     Swal.fire({
@@ -131,9 +131,9 @@ function validaCorreo(valor) {
         
         if (result.isConfirmed) {
              
-          document.tamila_form_contact_form_eliminar.accion.value='3';
-          document.tamila_form_contact_form_eliminar.id.value=id;
-          document.tamila_form_contact_form_eliminar.submit();
+          document.itc_form_contact_form_eliminar.accion.value='3';
+          document.itc_form_contact_form_eliminar.id.value=id;
+          document.itc_form_contact_form_eliminar.submit();
         }  
       });
       return false;
@@ -151,8 +151,8 @@ function validaCorreo(valor) {
       }).then((result) => {
         
         if (result.isConfirmed) { 
-          var form=document.tamila_productos_galeria_agregar_foto;
-          form.tamila_productos_galeria_agregar_foto_foto_id.value=id; 
+          var form=document.itc_productos_galeria_agregar_foto;
+          form.itc_productos_galeria_agregar_foto_foto_id.value=id; 
           form.accion.value='3';
           form.submit();
         }  
@@ -188,11 +188,11 @@ function validaCorreo(valor) {
    // console.log(marco.state().get('selection').first().toJSON().filename);
     //console.log(marco.state().get('selection').first().toJSON().url);
          
-    let form=document.tamila_productos_galeria_agregar_foto;
+    let form=document.itc_productos_galeria_agregar_foto;
           
-          form.tamila_productos_galeria_agregar_foto_foto_id.value=  marco.state().get('selection').first().toJSON().id;
+          form.itc_productos_galeria_agregar_foto_foto_id.value=  marco.state().get('selection').first().toJSON().id;
            
-          form.tamila_productos_galeria_agregar_foto_url.value=  marco.state().get('selection').first().toJSON().url;
+          form.itc_productos_galeria_agregar_foto_url.value=  marco.state().get('selection').first().toJSON().url;
           form.submit();
           
         });
@@ -215,24 +215,24 @@ function get_eliminar_foto_galeria(id){
           }).then((result) => {
             
             if (result.isConfirmed) {
-               document.tamila_productos_galeria_eliminar_foto.tamila_productos_galeria_eliminar_foto_id.value=id;
-              document.tamila_productos_galeria_eliminar_foto.submit();
+               document.itc_productos_galeria_eliminar_foto.itc_productos_galeria_eliminar_foto_id.value=id;
+              document.itc_productos_galeria_eliminar_foto.submit();
             }  
           })}
 function get_pasarelas(id, nombre){
   jQuery(document).ready(function($){
-    $("#tamila_tienda_pasarelas_modal").modal("show");
-        document.getElementById('tamila_tienda_pasarelas_modal_title').innerHTML="Datos pasarela: <strong>"+nombre+"</strong>";
+    $("#itc_tienda_pasarelas_modal").modal("show");
+        document.getElementById('itc_tienda_pasarelas_modal_title').innerHTML="Datos pasarela: <strong>"+nombre+"</strong>";
         $.ajax({
           type: "POST",
           url: datosajax.url,
           data:{
-              action : "tamila_tienda_pasarelas_ajax",
+              action : "itc_tienda_pasarelas_ajax",
               nonce : datosajax.nonce,
               id: id,
           },
           success:function(resp){ 
-              $("#tamila_tienda_pasarelas_modal_body").html(resp);
+              $("#itc_tienda_pasarelas_modal_body").html(resp);
               return false;
           }
       });
@@ -240,18 +240,18 @@ function get_pasarelas(id, nombre){
  }
  function get_variables_globales(id, nombre){
   jQuery(document).ready(function($){
-    $("#tamila_tienda_variables_globales_modal").modal("show");
-        document.getElementById('tamila_tienda_variables_globales_modal_title').innerHTML="Datos pasarela: <strong>"+nombre+"</strong>";
+    $("#itc_tienda_variables_globales_modal").modal("show");
+        document.getElementById('itc_tienda_variables_globales_modal_title').innerHTML="Datos pasarela: <strong>"+nombre+"</strong>";
         $.ajax({
           type: "POST",
           url: datosajax.url,
           data:{
-              action : "tamila_tienda_variables_globales_ajax",
+              action : "itc_tienda_variables_globales_ajax",
               nonce : datosajax.nonce,
               id: id,
           },
           success:function(resp){ 
-              $("#tamila_tienda_variables_globales_modal_body").html(resp);
+              $("#itc_tienda_variables_globales_modal_body").html(resp);
               return false;
           }
       });
@@ -259,18 +259,18 @@ function get_pasarelas(id, nombre){
  }
  function get_detalle_venta(id, nombre){
     jQuery(document).ready(function($){
-      $("#tamila_tienda_ventas_modal").modal("show");
-          document.getElementById('tamila_tienda_ventas_modal_title').innerHTML="Datos venta N°: <strong>"+nombre+"</strong>";
+      $("#itc_tienda_ventas_modal").modal("show");
+          document.getElementById('itc_tienda_ventas_modal_title').innerHTML="Datos venta N°: <strong>"+nombre+"</strong>";
           $.ajax({
             type: "POST",
             url: datosajax.url,
             data:{
-                action : "tamila_tienda_ventas_ajax",
+                action : "itc_tienda_ventas_ajax",
                 nonce : datosajax.nonce,
                 id: id,
             },
             success:function(resp){ 
-                $("#tamila_tienda_ventas_modal_body").html(resp);
+                $("#itc_tienda_ventas_modal_body").html(resp);
                 return false;
             }
         });
@@ -278,18 +278,18 @@ function get_pasarelas(id, nombre){
    }
    function get_editar_venta(id, nombre){
     jQuery(document).ready(function($){
-      $("#tamila_tienda_ventas_modal").modal("show");
-          document.getElementById('tamila_tienda_ventas_modal_title').innerHTML="Editar venta N°: <strong>"+nombre+"</strong>";
+      $("#itc_tienda_ventas_modal").modal("show");
+          document.getElementById('itc_tienda_ventas_modal_title').innerHTML="Editar venta N°: <strong>"+nombre+"</strong>";
           $.ajax({
             type: "POST",
             url: datosajax.url,
             data:{
-                action : "tamila_tienda_ventas_editar_ajax",
+                action : "itc_tienda_ventas_editar_ajax",
                 nonce : datosajax.nonce,
                 id: id,
             },
             success:function(resp){ 
-                $("#tamila_tienda_ventas_modal_body").html(resp);
+                $("#itc_tienda_ventas_modal_body").html(resp);
                 return false;
             }
         });
@@ -297,18 +297,18 @@ function get_pasarelas(id, nombre){
    }
    function get_filtro_venta(id, nombre){
     jQuery(document).ready(function($){
-      $("#tamila_tienda_ventas_modal").modal("show");
-          document.getElementById('tamila_tienda_ventas_modal_title').innerHTML="Filtro por: <strong>"+nombre+"</strong>";
+      $("#itc_tienda_ventas_modal").modal("show");
+          document.getElementById('itc_tienda_ventas_modal_title').innerHTML="Filtro por: <strong>"+nombre+"</strong>";
           $.ajax({
             type: "POST",
             url: datosajax.url,
             data:{
-                action : "tamila_tienda_ventas_filtro_ajax",
+                action : "itc_tienda_ventas_filtro_ajax",
                 nonce : datosajax.nonce,
                 id: id,
             },
             success:function(resp){ 
-                $("#tamila_tienda_ventas_modal_body").html(resp);
+                $("#itc_tienda_ventas_modal_body").html(resp);
                 return false;
             }
         });
@@ -316,7 +316,7 @@ function get_pasarelas(id, nombre){
    }
  function edit_pasarela()
  {
-    let form=document.tamila_tienda_form_pasarela;
+    let form=document.itc_tienda_form_pasarela;
     if(form.url.value==0)
     { 
     Swal.fire({
@@ -352,7 +352,7 @@ function get_pasarelas(id, nombre){
  }
  function edit_variables_globales()
  {
-    let form=document.tamila_tienda_form_variables_globales;
+    let form=document.itc_tienda_form_variables_globales;
     if(form.nombre.value==0)
     { 
     Swal.fire({
@@ -379,7 +379,7 @@ function get_pasarelas(id, nombre){
  }
 
  function send_editar_ventas(){
-    let form=document.tamila_tienda_form_ventas;
+    let form=document.itc_tienda_form_ventas;
     form.return.value=location.href;
     form.submit();
  }
