@@ -14,18 +14,21 @@ Text Domain: itc_tienda
 require_once plugin_dir_path( __FILE__ ) . 'includes/init.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/bloquear.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/slide.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/paginas.php';
 
 if (!defined('ABSPATH')) die();
 if(!function_exists('itc_tienda_instalar')){
     function itc_tienda_instalar(){
         itc_tienda_init();
         itc_tienda_slide_init();
+        //crear páginas
+        itc_tienda_crear_paginas();
     }
 }
 if(!function_exists('itc_tienda_desactivar')){
     function itc_tienda_desactivar(){
         //eliminar páginas
-        
+        itc_tienda_eliminar_paginas();
         #limpiador de enlaces permanentes
         flush_rewrite_rules( );
     }

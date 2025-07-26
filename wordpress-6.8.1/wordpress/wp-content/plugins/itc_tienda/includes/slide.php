@@ -65,12 +65,13 @@ if (!function_exists('itc_tienda_slide_codigo_corto_display')) {
                 ?>
 
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" style="background: none; border: none;">
+                <span aria-hidden="true" style="font-size: 2.5rem; color: white;">&#10094;</span> <!-- flecha izquierda -->
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next" style="background: none; border: none;">
+                <span aria-hidden="true" style="font-size: 2.5rem; color: white;">&#10095;</span> <!-- flecha derecha -->
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
