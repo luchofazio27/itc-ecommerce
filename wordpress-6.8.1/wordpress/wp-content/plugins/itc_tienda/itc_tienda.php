@@ -15,6 +15,8 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/init.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/bloquear.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/slide.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/paginas.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/productos.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/productos_galeria.php';
 
 if (!defined('ABSPATH')) die();
 if(!function_exists('itc_tienda_instalar')){
@@ -23,6 +25,8 @@ if(!function_exists('itc_tienda_instalar')){
         itc_tienda_slide_init();
         //crear páginas
         itc_tienda_crear_paginas();
+        //crear tablas para productos galería
+        itc_tienda_productos_galeria_init();
     }
 }
 if(!function_exists('itc_tienda_desactivar')){

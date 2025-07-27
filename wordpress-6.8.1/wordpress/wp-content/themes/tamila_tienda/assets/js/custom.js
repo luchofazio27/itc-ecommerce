@@ -31,9 +31,9 @@ function buscador()
    return false;
   }
 }
- function itc_tienda_login( )
+ function tamila_tienda_login( )
  {
-    var form=document.itc_tienda_login_form;
+    var form=document.tamila_tienda_login_form;
     
     
     if(form.correo.value==0)
@@ -68,8 +68,8 @@ function buscador()
     
     form.submit();
  }
- function itc_tienda_registro( ){
-  let form=document.itc_tienda_registro_form;
+ function tamila_tienda_registro( ){
+  let form=document.tamila_tienda_registro_form;
   if(form.nombre.value==0)
   { 
   Swal.fire({
@@ -132,8 +132,8 @@ function buscador()
   }
   form.submit();
  }
- function itc_tienda_perfil( ){
-  let form=document.itc_tienda_registro_form;
+ function tamila_tienda_perfil( ){
+  let form=document.tamila_tienda_registro_form;
   if(form.nombre.value==0)
   { 
   Swal.fire({
@@ -210,8 +210,8 @@ function buscador()
          }  
        })
  }
-function itc_tienda_checkout_submit(){
-let form=document.itc_tienda_checkout;
+function tamila_tienda_checkout_submit(){
+let form=document.tamila_tienda_checkout;
     if(form.telefono.value==0)
     { 
     Swal.fire({
@@ -244,8 +244,8 @@ let form=document.itc_tienda_checkout;
     }
     form.submit();
 }
-function itc_tienda_restablecer( ){
-    let form=document.itc_tienda_restablecer_form;
+function tamila_tienda_restablecer( ){
+    let form=document.tamila_tienda_restablecer_form;
     
     if(form.correo.value==0)
     { 
@@ -269,8 +269,8 @@ function itc_tienda_restablecer( ){
     
     form.submit();
    }
-   function itc_tienda_reset(){
-    let form=document.itc_tienda_reset_form;
+   function tamila_tienda_reset(){
+    let form=document.tamila_tienda_reset_form;
     if(form.password.value==0)
   { 
   Swal.fire({
@@ -308,23 +308,23 @@ function limpiar_carrito(){
       }).then((result) => {
         
         if (result.isConfirmed) {
-          document.itc_tienda_form_limpiar_carrito.submit();
+          document.tamila_tienda_form_limpiar_carrito.submit();
         }  
       })
 }
-function itc_tienda_comprar(id , url, nonce, retorno, accion){
+function tamila_tienda_comprar(id , url, nonce, retorno, accion){
     jQuery(document).ready(function($){
       
           $.ajax({
             type: "POST",
             url: url,
             data:{
-                action : "itc_tienda_comprar_ajax",
+                action : "tamila_tienda_comprar_ajax",
                 nonce : nonce,
                 id: id,
                 accion:accion,
-                carro_detalle_id:document.itc_tienda_form_single.carro_detalle_id.value,
-                product_quanity:document.itc_tienda_form_single.product_quanity.value,
+                carro_detalle_id:document.tamila_tienda_form_single.carro_detalle_id.value,
+                product_quanity:document.tamila_tienda_form_single.product_quanity.value,
             },
             success:function(resp){ 
                 window.location=retorno;
