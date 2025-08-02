@@ -12,7 +12,7 @@ Text Domain: itc_tienda
 */
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/init.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/bloquear.php';
+//require_once plugin_dir_path( __FILE__ ) . 'includes/bloquear.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/slide.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/paginas.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/productos.php';

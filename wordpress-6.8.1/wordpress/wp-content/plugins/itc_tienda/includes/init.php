@@ -1,5 +1,7 @@
 <?php 
 if(!defined('ABSPATH')) die();
+require_once plugin_dir_path( __FILE__ ) . 'pasarelas.php';
+require_once plugin_dir_path( __FILE__ ) . 'variables_globales.php';
 if(!function_exists('itc_tienda_init')){
     function itc_tienda_init(){
         global $wpdb;
@@ -345,8 +347,8 @@ if(!function_exists('itc_tienda_init_crear_menu')){
             'dashicons-admin-tools', 
             132 );
         add_menu_page( 
-            "ITC Tienda Pasarelas", 
-            "ITC Tienda Pasarelas", 
+            "ITC Pasarelas", 
+            "ITC Pasarelas", 
             "manage_options", 
             plugin_dir_path( __FILE__ )."admin/pasarelas.php", 
             null, 
