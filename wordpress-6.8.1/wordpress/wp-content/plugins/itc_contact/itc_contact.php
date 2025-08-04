@@ -244,9 +244,10 @@ if (!function_exists('itc_contact_send_correo')) {
             $mail->SMTPAuth   = true;
             $mail->Username = 'cd76b996175d68';
             $mail->Password = '9912b45e7c1689';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 2525;
 
-            $mail->setFrom('cd76b996175d68', "Curso MVP");
+            $mail->setFrom('no-reply@ticketera.local', "Ticketera");
             $mail->addAddress($datos[0]['correo'], get_bloginfo('name'));
 
             $mail->isHTML(true);

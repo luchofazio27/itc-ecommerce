@@ -17,6 +17,11 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/slide.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/paginas.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/productos.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/productos_galeria.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/usuarios.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/registro.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/activated.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/restablecer.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/reset.php';
 
 if (!defined('ABSPATH')) die();
 if(!function_exists('itc_tienda_instalar')){
