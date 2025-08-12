@@ -9,6 +9,9 @@ if (!function_exists('itc_ecommerce_setup')) {
     {
         // Agregar soporte para características del tema
         add_theme_support('post-thumbnails'); // Soporte para miniaturas de publicaciones
+        if (!current_user_can('manage_options')) {
+            show_admin_bar(false); // Ocultar barra de administración para usuarios que no son administradores
+        }
     }
     add_action('after_setup_theme', 'itc_ecommerce_setup');
 }

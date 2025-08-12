@@ -1,17 +1,16 @@
 <?php
-if(!defined('ABSPATH')) die();
+if (!defined('ABSPATH')) die();
 ?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>" />
-    <title><?php bloginfo('name'); ?> <?php (!empty(wp_title()))? '- '.wp_title():'' ?></title> 
+    <title><?php bloginfo('name'); ?> <?php (!empty(wp_title())) ? '- ' . wp_title() : '' ?></title>
     <meta name="author" content="Web Master liffdomotic | liffdomotic@gmail.com" />
-    <meta name="keywords" content="tienda"
-    />
+    <meta name="keywords" content="tienda" />
     <meta name="description" content="<?php bloginfo('description'); ?>" />
-    <link rel="icon" href="<?php echo get_template_directory_uri() ?>/assets/img/favicon-16x16.png"/>
+    <link rel="icon" href="<?php echo get_template_directory_uri() ?>/assets/img/favicon-16x16.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/assets/css/bootstrap.min.css" />
@@ -20,8 +19,9 @@ if(!defined('ABSPATH')) die();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/assets/css/sweetalert2.css" />
-    <?php wp_head();?>
+    <?php wp_head(); ?>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
         <div class="container text-light">
@@ -44,8 +44,8 @@ if(!defined('ABSPATH')) die();
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center" href="<?php echo get_site_url();?>">
-                 <img class="logo-tienda" src="<?php echo get_template_directory_uri() ?>/assets/images/logo.png" title="<?php bloginfo('name'); ?>" alt="<?php bloginfo('name'); ?>" />
+            <a class="navbar-brand text-success logo h1 align-self-center" href="<?php echo get_site_url(); ?>">
+                <img class="logo-tienda" src="<?php echo get_template_directory_uri() ?>/assets/images/logo.png" title="<?php bloginfo('name'); ?>" alt="<?php bloginfo('name'); ?>" />
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,14 +57,37 @@ if(!defined('ABSPATH')) die();
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <?php
                         $menu_items = wp_get_nav_menu_items('menu-principal');
-                        foreach((array) $menu_items as $key => $menu_item) { // Iterar sobre los elementos del menú
-                            if(!$menu_item -> menu_item_parent) { // Si no es un submenú
+                        foreach ((array) $menu_items as $key => $menu_item) { // Iterar sobre los elementos del menú
+                            if (!$menu_item->menu_item_parent) { // Si no es un submenú
+                        ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $menu_item->url ?>" title="<?php echo $menu_item->title ?>"> <?php echo $menu_item->title ?></a>
+                                </li>
+                            <?php
+                            }
+                        }
+                        //cargamos más menús
+                        if (is_user_logged_in()) {
+                            $userdata = wp_get_current_user(); // ✅ Obtiene el usuario actual
                             ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $menu_item -> url?>"title="<?php echo $menu_item -> title ?>"> <?php echo $menu_item -> title ?></a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo get_site_url(); ?>/perfil"
+                                    title="<?php echo esc_attr($userdata->user_firstname . ' ' . $userdata->user_lastname); ?>">
+                                    <?php echo esc_html($userdata->user_firstname . ' ' . $userdata->user_lastname); ?>
+                                </a>
+                            </li>
                         <?php
-                        }}
+                        } else {
+                        ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo get_site_url(); ?>/login" title="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo get_site_url(); ?>/registro" title="Registro">Registro</a>
+                            </li>
+
+                        <?php
+                        }
                         ?>
                     </ul>
                 </div>
@@ -80,14 +103,20 @@ if(!defined('ABSPATH')) die();
                     <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
-                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
-                    </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
-                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
-                    </a>
+
+                    <?php
+                    if (is_user_logged_in()) {
+                    ?>
+                        <a class="nav-icon position-relative text-decoration-none" href="#">
+                            <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
+                        </a>
+                        <a class="nav-icon position-relative text-decoration-none" href="javascript:void(0);" onclick="cerrarSesion('<?php echo wp_logout_url(home_url('login')) ?>');" title="Cerrar Sesión">
+                            <i class="fas fa-power-off text-dark mr-3"></i>
+                        <?php
+                    }
+                        ?>
+                        </a>
                 </div>
             </div>
 
@@ -99,7 +128,7 @@ if(!defined('ABSPATH')) die();
             <div class="w-100 pt-1 mb-5 text-right">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" title="Cerrar"></button>
             </div>
-            <form action="<?php echo get_site_url();?>" method="get" class="modal-content modal-body border-0 p-0">
+            <form action="<?php echo get_site_url(); ?>" method="get" class="modal-content modal-body border-0 p-0">
                 <div class="input-group mb-2">
                     <input type="text" class="form-control" id="inputModalSearch" name="s" placeholder="Buscar" />
                     <button type="submit" class="input-group-text bg-success text-light" title="Buscar">
