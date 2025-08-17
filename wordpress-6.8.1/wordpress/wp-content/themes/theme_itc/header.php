@@ -1,6 +1,19 @@
 <?php
 if (!defined('ABSPATH')) die();
+if(is_user_logged_in()){
+    $userdata=wp_get_current_user();//con ésto obtenemos los datos del usuario logueado
+}else{
+    $userdata=array();
+}
+global $wpdb;
+$carro=$wpdb->get_results("select count(*) as cuantos from {$wpdb->prefix}itc_tienda_carro_detalle 
+inner join {$wpdb->prefix}itc_tienda_carro on {$wpdb->prefix}itc_tienda_carro.id={$wpdb->prefix}itc_tienda_carro_detalle.itc_tienda_carro_id
+where 
+{$wpdb->prefix}itc_tienda_carro.usuario_id='".$userdata->ID."' 
+and 
+{$wpdb->prefix}itc_tienda_carro.estado_id in (1, 6);");
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -68,7 +81,7 @@ if (!defined('ABSPATH')) die();
                         }
                         //cargamos más menús
                         if (is_user_logged_in()) {
-                            $userdata = wp_get_current_user(); // ✅ Obtiene el usuario actual
+                            $userdata = wp_get_current_user(); // Obtiene el usuario actual
                             ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo get_site_url(); ?>/perfil"
@@ -107,10 +120,16 @@ if (!defined('ABSPATH')) die();
                     <?php
                     if (is_user_logged_in()) {
                     ?>
-                        <a class="nav-icon position-relative text-decoration-none" href="#">
+                        <a class="nav-icon position-relative text-decoration-none" href="<?php echo get_site_url();?>/checkout">
                             <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
-                        </a>
+                            <?php
+                        if($carro[0]->cuantos>=1){
+                            ?>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"><?php echo $carro[0]->cuantos;?></span>
+                            <?php
+                        }
+                        ?>
+                    </a>
                         <a class="nav-icon position-relative text-decoration-none" href="javascript:void(0);" onclick="cerrarSesion('<?php echo wp_logout_url(home_url('login')) ?>');" title="Cerrar Sesión">
                             <i class="fas fa-power-off text-dark mr-3"></i>
                         <?php

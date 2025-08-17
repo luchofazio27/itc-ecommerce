@@ -32,7 +32,7 @@ $(document).ready(function() {
       return false;
     });
     $('#btn-plus').click(function(){
-      var form=document.tamila_tienda_form_single;
+      var form=document.itc_tienda_form_single;
       var val = $("#var-value").html();
       
       if(parseInt(val)>=parseInt(form.stock.value)){

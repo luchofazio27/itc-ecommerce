@@ -24,6 +24,8 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/restablecer.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/reset.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/login.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/perfil.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/comprar.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/checkout.php';
 
 if (!defined('ABSPATH')) die();
 if(!function_exists('itc_tienda_instalar')){

@@ -13,7 +13,7 @@ $fotos = $wpdb->get_results(
         "' order by id desc;",
     ARRAY_A
 ); 
-$carro = $wpdb->get_results(
+$carro = $wpdb->get_results( //obtenemos el carro del usuario
     "
     select 
     {$wpdb->prefix}itc_tienda_carro_detalle.id
@@ -127,7 +127,7 @@ get_header();
                         <?php 
                         if(get_post_meta(get_the_ID(), "Stock")[0]>=1){
                             ?>
-                        <form action="" method="GET" name="tamila_tienda_form_single">
+                        <form action="" method="GET" name="itc_tienda_form_single">
                         <!--cantidad-->
                         <hr />
                         <div class="row pb-3">
@@ -155,11 +155,11 @@ get_header();
                         <!--botones comprar-->
                         <div class="row pb-3">
                         <?php 
-                        if(is_user_logged_in()){
+                        if(is_user_logged_in()){ // verificamos si el usuario está logueado
                             ?>
                         <div class="col d-grid">
                             <?php
-                            if(sizeof($carro)==0){
+                            if(sizeof($carro)==0){ // verificamos si el carro está vacío
                                 ?>
                             <a href="javascript:void(0);" class="btn btn-outline-danger btn-lg" onclick="itc_tienda_comprar('<?php the_ID();?>' , '<?php echo admin_url("admin-ajax.php");?>', '<?php echo wp_create_nonce("seg"); ?>', '<?php echo get_site_url();?>/checkout', '1');" title="Comprar">
                                 <i class="fas fa-arrow-up"></i> Comprar
@@ -171,13 +171,13 @@ get_header();
                         </div>
                         <div class="col d-grid">
                         <?php 
-                        if(sizeof($carro)==0){
+                        if(sizeof($carro)==0){ // verificamos si el carro está vacío
                             ?>
                             <a href="javascript:void(0);" class="btn btn-outline-success btn-lg" onclick="itc_tienda_comprar('<?php the_ID();?>' , '<?php echo admin_url("admin-ajax.php");?>', '<?php echo wp_create_nonce("seg"); ?>', '<?php echo get_permalink();?>', '1');" title="Añadir al carrito">
                             <i class="fa fa-fw fa-cart-arrow-down"></i> Añadir al carrito
                             </a>
                             <?php
-                        }else{
+                        }else{ // si el carro no está vacío, mostramos el botón de quitar del carrito
                             ?>
                             <a href="javascript:void(0);" class="btn btn-outline-warning btn-lg" onclick="itc_tienda_comprar('<?php the_ID();?>' , '<?php echo admin_url("admin-ajax.php");?>', '<?php echo wp_create_nonce("seg"); ?>', '<?php echo get_permalink();?>', '2');" title="Quitar del carrito">
                             <i class="fa fa-fw fa-cart-arrow-down"></i> Quitar del carrito
@@ -185,7 +185,7 @@ get_header();
                             <?php
                         }
                         ?>
-                        <input type="hidden" name="carro_detalle_id" value="<?php echo $carro[0]->id;?>" />
+                        <input type="hidden" name="carro_detalle_id" value="<?php echo !empty($carro) ? $carro[0]->id : ''; ?>" />
                             
                         </div>
                             <?php
