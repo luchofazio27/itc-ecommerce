@@ -9,7 +9,7 @@ global $wpdb;
 $carro=$wpdb->get_results("select count(*) as cuantos from {$wpdb->prefix}itc_tienda_carro_detalle 
 inner join {$wpdb->prefix}itc_tienda_carro on {$wpdb->prefix}itc_tienda_carro.id={$wpdb->prefix}itc_tienda_carro_detalle.itc_tienda_carro_id
 where 
-{$wpdb->prefix}itc_tienda_carro.usuario_id='".$userdata->ID."' 
+{$wpdb->prefix}itc_tienda_carro.usuario_id='".$userdata->ID."'
 and 
 {$wpdb->prefix}itc_tienda_carro.estado_id in (1, 6);");
 ?>
@@ -80,27 +80,23 @@ and
                             }
                         }
                         //cargamos más menús
-                        if (is_user_logged_in()) {
-                            $userdata = wp_get_current_user(); // Obtiene el usuario actual
-                            ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo get_site_url(); ?>/perfil"
-                                    title="<?php echo esc_attr($userdata->user_firstname . ' ' . $userdata->user_lastname); ?>">
-                                    <?php echo esc_html($userdata->user_firstname . ' ' . $userdata->user_lastname); ?>
-                                </a>
-                            </li>
-                        <?php
-                        } else {
+                    if(is_user_logged_in()){
                         ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo get_site_url(); ?>/login" title="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo get_site_url(); ?>/registro" title="Registro">Registro</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo get_site_url();?>/perfil" title="<?php echo $userdata->user_firstname." ".$userdata->user_lastname?>"><?php echo $userdata->user_firstname." ".$userdata->user_lastname?></a>
+                        </li>
+                        <?php
+                    }else{
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo get_site_url();?>/login"  title="Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo get_site_url();?>/registro"  title="Registro">Registro</a>
+                        </li>
 
                         <?php
-                        }
+                    }
                         ?>
                     </ul>
                 </div>
