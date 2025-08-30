@@ -18,7 +18,7 @@ if(!function_exists('tamila_tienda_envia_correo')){
         $mail = new PHPMailer(true);
 
         try {
-            $mail->STMTDebug = SMTP::DEBUG_SERVER;
+            //$mail->STMTDebug = SMTP::DEBUG_SERVER;
             $mail->isSMTP();
             $mail->Host =$datos[0]['valor'];
             $mail->SMTPAuth   = true;

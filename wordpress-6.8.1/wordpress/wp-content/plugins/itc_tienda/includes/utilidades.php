@@ -58,16 +58,16 @@ if (!function_exists('itc_tienda_generate_jwt')) {
 if (!function_exists('itc_tienda_obtener_valor_dolar')) {
     function itc_tienda_obtener_valor_dolar()
     {
-        //https://github.com/configuroweb/scraping-php/tree/master
-        require_once plugin_dir_path(__FILE__) . 'simple_html_dom.php';
-        $data = file_get_contents("https://www.valor-dolar.cl");
-        $pos = strpos('<div class="currency-field-result-number" id="currency convertion">', $data);
-        $domResult = new simple_html_dom();
-        $domResult->load($data);
-        $dolar = 800;
-        foreach ($domResult->find('div[class=currency-field-result-number]') as $link) {
-            $dolar = $link->plaintext;
+        $response = wp_remote_get('https://api.dolarapi.com/v1/dolares/oficial');
+        
+        if (is_wp_error($response)) {
+            return 1; // fallback si falla
         }
-        return $dolar;
+
+        $body = wp_remote_retrieve_body($response);
+        $data = json_decode($body, true);
+
+        // Devuelve el valor de venta (precio al que se compra USD en Argentina)
+        return isset($data['venta']) ? floatval($data['venta']) : 1;
     }
 }

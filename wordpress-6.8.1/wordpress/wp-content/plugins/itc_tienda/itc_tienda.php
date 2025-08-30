@@ -27,6 +27,8 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/perfil.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/comprar.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/checkout.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/verificacion.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/ventas.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/excel.php';
 
 if (!defined('ABSPATH')) die();
 if(!function_exists('itc_tienda_instalar')){

@@ -3,13 +3,33 @@
 if(!defined('ABSPATH')) die();
 
 // Incluye los archivos de integración con cada pasarela de pago
+//require_once plugin_dir_path( __FILE__ ) . 'webpay.php';
 require_once plugin_dir_path( __FILE__ ) . 'paypal.php';
-//require_once plugin_dir_path( __FILE__ ) . 'mercado_pago.php';
+require_once plugin_dir_path( __FILE__ ) . 'mercado_pago.php';
 //require_once plugin_dir_path( __FILE__ ) . 'stripe.php';
 
 // Hook que se ejecuta después de que el tema se ha configurado
 add_action('after_setup_theme', function(){
-  
+    //WEBPAY
+    /*
+    if(isset($_GET['token_ws'])){
+        $respuesta=tamila_tienda_webpay_verificar(sanitize_text_field( $_GET['token_ws'] ));
+        if($respuesta['estado']==false){
+            wp_safe_redirect( home_url('verificacion')."?error=1" ); exit;
+        }else{
+            global $wpdb;
+            $datos=$wpdb->get_results("select id from {$wpdb->prefix}ITC_tienda_carro where token ='".sanitize_text_field($_GET['token_ws'])."'");
+         
+            $wpdb->query("update 
+                {$wpdb->prefix}tamila_tienda_carro 
+                set estado_id=5,
+                fecha_final=now()
+                where token ='".sanitize_text_field($_GET['token_ws'])."';");
+            
+            wp_safe_redirect( home_url('verificacion')."?error=2&id=".$datos[0]->id  ); exit;
+        }
+    }
+     */
 
     // ---------------- PAYPAL ----------------
     if(isset($_GET['PayerID']) and isset($_GET['token'])){ // Si viene info de PayPal
@@ -58,6 +78,7 @@ add_action('after_setup_theme', function(){
     }
 
     // ---------------- STRIPE ----------------
+    /*
     if(isset($_GET['stripe']) ){
         global $wpdb;
         // Busca el carro por ID
@@ -75,6 +96,7 @@ add_action('after_setup_theme', function(){
             wp_safe_redirect( home_url('verificacion')."?error=2&id=".$datos[0]->id  ); exit;
         }
     }
+        */
 });
 
 // ---------------- SHORTCODE ----------------
@@ -269,6 +291,25 @@ if(!function_exists('itc_tienda_verificacion_codigo_corto_display')){
                         <div class="col-6"> <!-- Columna derecha (botón pagar según pasarela) -->
                         <?php 
                         switch($compras[0]->tipo_pago){ // Selecciona la pasarela según el tipo elegido
+                            /*
+                            case '1':
+                                $pagar=tamila_tienda_webpay_token($compras);
+                                $wpdb->query("update {$wpdb->prefix}tamila_tienda_carro
+                                set 
+                                monto='".$sum."',
+                                token='".$pagar['token']."' 
+                                where id='".$compras[0]->id."'");
+                                ?>
+                                <a href="javascript:void(0);" class="btn btn-danger" title="Pagar con <?php echo $compras[0]->pasarela?>" onclick="document.tamila_tienda_form_webpay.submit();">
+                                <i class="fas fa-dollar-sign"></i> Pagar con <?php echo $compras[0]->pasarela?>
+                                </a>
+                                <form action="<?php echo $pagar['url']?>" method="POST" name="tamila_tienda_form_webpay">
+                                <input type="hidden" name="token_ws" id="token_ws" value="<?php echo $pagar['token']?>"  />
+                                
+                                </form>
+                                <?php
+                            break;
+                            */
                             case '2': // Caso PayPal
                                 $pagar=itc_tienda_paypal_token($compras); // Genera token/link de aprobación PayPal (renombrado a itc_)
                                 $wpdb->query("update {$wpdb->prefix}itc_tienda_carro
@@ -284,8 +325,7 @@ if(!function_exists('itc_tienda_verificacion_codigo_corto_display')){
 
                             break; // Fin caso PayPal
 
-                            /*
-                            case '2': // Caso Mercado Pago
+                            case '3': // Caso Mercado Pago
                                 $pagar=itc_tienda_mercado_pago_token($compras); // Genera preferencia/URL de Mercado Pago (renombrado a itc_)
                                 $wpdb->query("update {$wpdb->prefix}itc_tienda_carro
                                 set 
@@ -298,8 +338,8 @@ if(!function_exists('itc_tienda_verificacion_codigo_corto_display')){
                                 </a> <!-- Fin botón Mercado Pago -->
                                 <?php
                             break; // Fin caso Mercado Pago
-
-                            case '3': // Caso Stripe (Checkout Session)
+/*
+                            case '4': // Caso Stripe (Checkout Session)
                                 $pagar=itc_tienda_stripe_obtener_token($compras); // Crea la sesión/URL de Stripe (renombrado a itc_)
                                 $wpdb->query("update {$wpdb->prefix}itc_tienda_carro
                                 set 
