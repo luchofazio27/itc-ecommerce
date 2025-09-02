@@ -62,8 +62,8 @@ if(!function_exists('itc_tienda_restablecer_codigo_corto_display')){
     function itc_tienda_restablecer_codigo_corto_display($argumentos, $content=""){
         $html = '';
 
-        $html .= '<div class="container"><form action="'.get_site_url().'/restablecer" method="POST" name="itc_tienda_restablecer_form">';
-        $html .= '<div class="row">';
+        $html .= '<div class="container restablecer-container"><form action="'.get_site_url().'/restablecer" method="POST" name="itc_tienda_restablecer_form">';
+        $html .= '<div class="row justify-content-center">';
 
         // Mensaje si el email no existe
         if(isset($_REQUEST["error"]) and sanitize_text_field($_REQUEST['error']) == '1'){
@@ -81,8 +81,10 @@ if(!function_exists('itc_tienda_restablecer_codigo_corto_display')){
             </div>';
         }
 
-        $html .= '<div class="col-8">';
-        $html .= '<h2>Restablecer mi contraseña</h2><p>Indícanos tu correo electrónico para enviarte las instrucciones para que puedas restablecer tu contraseña</p><hr/>';
+        $html .= '<div class="col-lg-8 col-md-10">';
+        $html .= '<div class="form-card">';
+        $html .= '<h2 class="form-title">Restablecer mi contraseña</h2>
+                  <p class="form-text">Indícanos tu correo electrónico para enviarte las instrucciones para que puedas restablecer tu contraseña</p>';
 
         // Input de correo
         $html .= '<div class="mb-3">
@@ -97,18 +99,58 @@ if(!function_exists('itc_tienda_restablecer_codigo_corto_display')){
         $html .= '<hr />';
 
         // Botón de envío
-        $html .= '<a href="javascript:void(0);" class="btn btn-warning" onclick="itc_tienda_restablecer()" title="Enviar">
+        $html .= '<a href="javascript:void(0);" class="btn btn-warning w-100" onclick="itc_tienda_restablecer()" title="Enviar">
         <i class="fas fa-envelope"></i> Enviar</a>';
 
+        $html .= '</div>'; // cierra form-card
         $html .= '</div>'; // cierra col
         $html .= '</div>'; // cierra row
         $html .= '</form>';
 
         // Enlaces de acceso
-        $html .= '<hr/><p><a href="'.get_site_url().'/login" title="Ya tengo cuenta">Ya tengo cuenta</a> | 
+        $html .= '<hr/><p class="text-center"><a href="'.get_site_url().'/login" title="Ya tengo cuenta">Ya tengo cuenta</a> | 
         <a href="'.get_site_url().'/registro" title="No tienes cuenta? Regístrate aquí">No tienes cuenta? Regístrate aquí</a></p>';
 
         $html .= '</div>'; // cierra container
+
+        // Estilos embebidos
+        $html .= '<style>
+        .restablecer-container {
+            padding: 40px 15px;
+            max-width: 100%;
+        }
+        .form-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        .form-text {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .form-label {
+            font-weight: 600;
+        }
+        @media (max-width: 768px) {
+            .form-card {
+                padding: 20px;
+            }
+            .form-title {
+                font-size: 1.4rem;
+            }
+            .form-text {
+                font-size: 0.9rem;
+            }
+        }
+        </style>';
 
         return $html;
     }

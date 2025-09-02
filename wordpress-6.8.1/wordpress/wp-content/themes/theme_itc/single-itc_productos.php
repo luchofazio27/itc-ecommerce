@@ -4,7 +4,7 @@ if (!defined("ABSPATH")) {
 }
 $query=new WP_Query( [
     'post_type'=>'itc_productos',
-    'p'=>$post->ID//$post es una variable global de wordpress
+    'p'=>$post->ID
 ]);
 global $wpdb;
 $fotos = $wpdb->get_results(
@@ -13,7 +13,7 @@ $fotos = $wpdb->get_results(
         "' order by id desc;",
     ARRAY_A
 ); 
-$carro = $wpdb->get_results( //obtenemos el carro del usuario
+$carro = $wpdb->get_results(
     "
     select 
     {$wpdb->prefix}itc_tienda_carro_detalle.id
@@ -31,6 +31,22 @@ $carro = $wpdb->get_results( //obtenemos el carro del usuario
  
 get_header();
 ?>
+
+<style>
+/* 🔹 Todas las miniaturas con tamaño uniforme */
+.product-thumbnail {
+    width: 100%;
+    height: 100px; /* puedes ajustar a 80px, 120px, etc */
+    object-fit: cover; /* recorta manteniendo proporción */
+    border-radius: 6px;
+    transition: transform 0.2s ease;
+}
+
+.product-thumbnail:hover {
+    transform: scale(1.05);
+}
+</style>
+
 <section class="bg-light">
     <div class="container pb-5">
         <div class="row">
@@ -62,7 +78,7 @@ get_header();
                                     <!--foto-->
                                     <div class="col-4">
                                         <a href="javascript:void(0);">
-                                            <img class="card-img img-fluid" src="<?php echo get_site_url() .$foto["nombre"]; ?>" title="<?php echo $i; ?>" />
+                                            <img class="product-thumbnail" src="<?php echo get_site_url() .$foto["nombre"]; ?>" title="<?php echo $i; ?>" />
                                         </a>
                                     </div>
                                     <!--//foto-->
@@ -76,13 +92,11 @@ get_header();
                                             </div>  
                                              <!--//carrusel-->
                                              <!--carrusel--> 
-                                            <div class="carousel-item  ">
-                                        <div class="row">
+                                            <div class="carousel-item">
+                                                <div class="row">
                                                 <?php }
                                             }
                                         ?>
-                                        
-
                                 </div>
                             </div>
                             <!--/carrusel-->

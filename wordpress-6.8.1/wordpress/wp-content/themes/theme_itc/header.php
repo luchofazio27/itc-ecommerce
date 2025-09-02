@@ -1,10 +1,6 @@
 <?php
 if (!defined('ABSPATH')) die();
-if(is_user_logged_in()){
-    $userdata=wp_get_current_user();//con ésto obtenemos los datos del usuario logueado
-}else{
-    $userdata=array();
-}
+$userdata = wp_get_current_user();
 global $wpdb;
 $carro=$wpdb->get_results("select count(*) as cuantos from {$wpdb->prefix}itc_tienda_carro_detalle 
 inner join {$wpdb->prefix}itc_tienda_carro on {$wpdb->prefix}itc_tienda_carro.id={$wpdb->prefix}itc_tienda_carro_detalle.itc_tienda_carro_id
@@ -23,7 +19,7 @@ and
     <meta name="author" content="Web Master liffdomotic | liffdomotic@gmail.com" />
     <meta name="keywords" content="tienda" />
     <meta name="description" content="<?php bloginfo('description'); ?>" />
-    <link rel="icon" href="<?php echo get_template_directory_uri() ?>/assets/img/favicon-16x16.png" />
+    <link rel="icon" href="<?php echo get_template_directory_uri() ?>/assets/images/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/assets/css/bootstrap.min.css" />
@@ -33,8 +29,163 @@ and
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/assets/css/sweetalert2.css" />
     <?php wp_head(); ?>
-</head>
 
+
+    
+<style>
+/* HEADER NEGRO SÓLIDO CON SOMBRA REAL */
+nav.custom-header.navbar {
+    background-color: #000000 !important; /* negro puro */
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    height: 95px !important;
+    z-index: 1000;
+
+    /* sombra que cae sobre el contenido */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.8); /* eje vertical, desenfoque y transparencia */
+}
+
+/* Links de navegación - blanco con efecto de brillo */
+.custom-header .nav-link {
+    color: #ffffff !important;
+    font-weight: 500;
+    transition: all 0.4s ease;
+    text-shadow: 0 0 0px #fff;
+}
+
+.custom-header .nav-link:hover {
+    color: #ffffff !important;
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
+}
+
+/* Iconos del carrito, login y demás a la derecha */
+.custom-header .nav-icon i {
+    color: #ffffff !important;
+    font-size: 1.3rem;
+    transition: all 0.4s ease;
+    text-shadow: 0 0 0px #fff;
+}
+
+.custom-header .nav-icon:hover i,
+.custom-header .nav-icon:focus i {
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
+    transform: scale(1.2);
+}
+
+/* Logo */
+.custom-header .logo-tienda {
+    height: 70px; 
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.custom-header .logo-tienda:hover {
+    transform: scale(1.05);
+}
+
+/* Buscador en el menú móvil */
+#templatemo_main_nav .input-group {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 300px; /* ancho máximo para que no se deforme */
+}
+
+/* Opcional: margen superior para que quede más alineado con los enlaces */
+#templatemo_main_nav .input-group input {
+    text-align: center; /* centramos el texto dentro */
+}
+
+
+/* Fondo negro y centrado en el menú responsive */
+@media (max-width: 991px) {
+    #templatemo_main_nav {
+        background-color: #000000 !important; /* mismo negro del header */
+        padding: 1rem 0; /* espacio arriba y abajo */
+        text-align: center; /* centra los elementos */
+    }
+
+    #templatemo_main_nav .nav-item {
+        margin: 0.5rem 0; /* espacio entre opciones */
+    }
+
+    #templatemo_main_nav .nav-link {
+        color: #ffffff !important; /* blanco */
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    #templatemo_main_nav .nav-link:hover {
+        text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+    }
+}
+/* Dropdown móvil con fondo negro centrado (lo que ya tenías) */
+@media (max-width: 991.98px) {
+  #templatemo_main_nav {
+    background-color: #000 !important;
+    padding: 1rem 0;
+    text-align: center;
+  }
+  #templatemo_main_nav .nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  #templatemo_main_nav .nav-item { margin: .5rem 0; }
+}
+
+/* --- FIX buscador --- */
+@media (max-width: 991.98px) {
+  /* Wrapper del buscador (el div con d-lg-none col-7 col-sm-auto ...) */
+  #templatemo_main_nav .d-lg-none {
+    flex: 0 0 100% !important;    /* anula col-7 */
+    max-width: 100% !important;   /* anula col-7 */
+    padding-left: 1rem;           /* margen izquierdo visible */
+    padding-right: 1rem;
+    margin-top: .5rem;
+    margin-bottom: .75rem;
+  }
+
+  /* Centra y limita el input dentro del wrapper */
+  #templatemo_main_nav .d-lg-none .input-group {
+    max-width: 320px;             /* evitá que se estire */
+    margin-left: auto;
+    margin-right: auto;           /* centrado */
+  }
+
+  #templatemo_main_nav .d-lg-none .form-control {
+    text-align: center;
+  }
+}
+
+/* Opcional: a partir de 768px podés achicar un poco más el buscador si querés */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  #templatemo_main_nav .d-lg-none .input-group {
+    max-width: 300px;
+  }
+}
+/*Estilo para pantallas medianas en adelante */
+@media (min-width: 768px) {
+  /* Centramos el menú principal (Home, Tienda, Contactanos) */
+  .navbar-nav {
+    margin: 0 auto !important;   /* fuerza centrado */
+    text-align: center;
+  }
+
+  /* Centramos el buscador */
+  .navbar .form-inline {
+    margin: 0 auto !important;
+    max-width: 300px;            /* evita que se estire demasiado */
+  }
+
+  /* Aseguramos que carrito y logout no se vayan a las puntas */
+  .navbar .ms-auto {
+    margin-left: 0 !important;
+  }
+}
+</style>
+
+</head>
 <body>
     <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
         <div class="container text-light">
@@ -54,18 +205,18 @@ and
             </div>
         </div>
     </nav>
-    <nav class="navbar navbar-expand-lg navbar-light shadow">
-        <div class="container d-flex justify-content-between align-items-center">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-header shadow-sm">
+    <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center" href="<?php echo get_site_url(); ?>">
-                <img class="logo-tienda" src="<?php echo get_template_directory_uri() ?>/assets/images/logo.png" title="<?php bloginfo('name'); ?>" alt="<?php bloginfo('name'); ?>" />
-            </a>
+        <a class="navbar-brand text-success logo h1 align-self-center" href="<?php echo get_site_url(); ?>">
+            <img class="logo-tienda" src="<?php echo get_template_directory_uri() ?>/assets/images/logo.png" title="<?php bloginfo('name'); ?>" alt="<?php bloginfo('name'); ?>" />
+        </a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <?php

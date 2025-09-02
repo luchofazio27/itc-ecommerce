@@ -196,34 +196,42 @@ if (!function_exists('itc_contact_display')) {
         </script>
 <?php
         $nonce = wp_create_nonce('seg');
-        $html = '';
-        $html .= '<div class="container"><form action="" method="POST" name="itc_contact_form">';
+        $html  = '<div class="container my-5">';
+$html .= '<div class="row justify-content-center">';
+$html .= '<div class="col-lg-8 col-md-10">';
+$html .= '<div class="card shadow-lg border-0 rounded-3">';
+$html .= '<div class="card-body p-4">';
+$html .= '<h4 class="text-center mb-4 text-dark">Completa el siguiente formulario y nos pondremos en contacto contigo</h4>';
 
-        $html .= '<div class="row">';
-        $html .= '<div class="col-8">';
-        $html .= '<h5>Completa el siguiente formulario y nos pondremos en contacto contigo</h5>';
-        $html .= '<div class="mb-3">
-                <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" /> 
-               </div>';
-        $html .= '<div class="mb-3">
-       <label for="nombre" class="form-label">E-Mail:</label>
-               <input type="text" name="correo" id="correo" class="form-control" placeholder="E-Mail" /> 
-              </div>';
-        $html .= '<div class="mb-3">
-              <label for="nombre" class="form-label">Teléfono:</label>
-              <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Telefono" /> 
-             </div>';
-        $html .= '<div class="mb-3">
-             <label for="nombre" class="form-label">Mensaje:</label>
-             <textarea class="form-control" name="mensaje" id="mensaje" placeholder="Mensaje"></textarea>
-            </div>';
-        $html .= '<input type="hidden" name="nonce" value="' . $nonce . '" id="nonce" />';
-        $html .= '<hr />';
-        $html .= '<a href="javascript:void(0);" class="btn btn-warning" onclick="itc_form_contact()"><i class="fas fa-envelope"></i> Enviar</a> ';
-        $html .= '</div>';
-        $html .= '</div>';
-        $html .= '</form></div>';
+$html .= '<form action="" method="POST" name="itc_contact_form">';
+$html .= '<div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" /> 
+          </div>';
+$html .= '<div class="mb-3">
+            <label for="correo" class="form-label">E-Mail:</label>
+            <input type="text" name="correo" id="correo" class="form-control" placeholder="E-Mail" /> 
+          </div>';
+$html .= '<div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono:</label>
+            <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Teléfono" /> 
+          </div>';
+$html .= '<div class="mb-3">
+            <label for="mensaje" class="form-label">Mensaje:</label>
+            <textarea class="form-control" name="mensaje" id="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
+          </div>';
+$html .= '<input type="hidden" name="nonce" value="' . $nonce . '" id="nonce" />';
+$html .= '<div class="d-grid gap-2">';
+$html .= '<a href="javascript:void(0);" class="btn btn-warning btn-lg text-white fw-bold" onclick="itc_form_contact()"><i class="fas fa-envelope"></i> Enviar</a>';
+$html .= '</div>';
+$html .= '</form>';
+
+$html .= '</div>'; // card-body
+$html .= '</div>'; // card
+$html .= '</div>'; // col
+$html .= '</div>'; // row
+$html .= '</div>'; // container
+
         return $html;
     }
 }
@@ -309,3 +317,5 @@ if(!function_exists('itc_contact_respuestas_ajax')){
     }
     add_action('wp_ajax_itc_contact_respuestas_ajax', 'itc_contact_respuestas_ajax');
 }
+
+
