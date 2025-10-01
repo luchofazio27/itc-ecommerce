@@ -2,7 +2,7 @@
 if(!defined('ABSPATH')) die();
 
 add_action('after_setup_theme', function(){
-    if(isset($_POST['nonce']) and $_POST['action']=='perfil-in'){
+    if (isset($_POST['nonce']) && (($_POST['action'] ?? '') == 'perfil-in')) {
         $userdata = wp_get_current_user();
 
         $user_id = wp_update_user([

@@ -2,7 +2,7 @@
 if(!defined('ABSPATH')) die();
 if(!function_exists('itc_tienda_variables_globales_post')){
     function itc_tienda_variables_globales_post() {
-        if(isset($_POST['nonce']) and $_POST['action']=='variables-globales-edit'){
+        if (isset($_POST['nonce']) && (($_POST['action'] ?? '') == 'variables-globales-edit')) {
             global $wpdb;
             $wpdb->query("update {$wpdb->prefix}itc_tienda_variables_globales 
                     set  

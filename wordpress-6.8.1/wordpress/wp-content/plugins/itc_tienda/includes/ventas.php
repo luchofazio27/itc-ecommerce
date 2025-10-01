@@ -154,7 +154,7 @@ add_action('wp_ajax_itc_tienda_ventas_ajax', function(){
 // Acción AJAX para editar una venta
 add_action('after_setup_theme', function(){
     // Verifica si existe el nonce y si la acción recibida es "venta-edit"
-    if(isset($_POST['nonce']) and $_POST['action']=='venta-edit'){
+    if (isset($_POST['nonce']) && (($_POST['action'] ?? '') == 'venta-edit')) {
         global $wpdb; // Conexión global a la base de datos de WordPress
         
         // Actualiza el estado de la venta en la base de datos

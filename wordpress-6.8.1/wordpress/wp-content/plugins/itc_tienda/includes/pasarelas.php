@@ -2,7 +2,7 @@
 if(!defined('ABSPATH')) die();
 
 add_action('after_setup_theme', function(){ // hook para que se ejecute después de que el tema esté configurado
-    if(isset($_POST['nonce'])  and $_POST['action']=='pasarela-edit'){
+    if (isset($_POST['nonce']) && (($_POST['action'] ?? '') == 'pasarela-edit')) {
         global $wpdb; // acceso a la base de datos de WordPress y actualización de la pasarela
             $wpdb->query("update {$wpdb->prefix}itc_tienda_carro_pasarelas
                     set 

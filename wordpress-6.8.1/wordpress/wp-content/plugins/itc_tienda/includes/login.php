@@ -8,7 +8,7 @@ add_action('init', function () {
 
 add_action('after_setup_theme', function () {
     // Comprueba si se envió el formulario de login
-    if (isset($_POST['nonce']) and $_POST['action'] == 'log-in') {
+    if (isset($_POST['nonce']) && (($_POST['action'] ?? '') == 'log-in')) {
         // Intenta iniciar sesión con los datos enviados
         $login = wp_signon(array(
             'user_login'    => sanitize_text_field($_POST['correo']), // Sanitiza el correo

@@ -238,28 +238,50 @@ $html .= '</div>'; // container
 if (!function_exists('itc_contact_send_correo')) {
     function itc_contact_send_correo($id, $nombre, $correo, $telefono, $mensaje)
     {
-
         global $wpdb;
-        $datos = $wpdb->get_results("select correo from {$wpdb->prefix}itc_contact where id='{$id}';", ARRAY_A);
 
-        require 'vendor/autoload.php';
+        // Guardar nivel de reporte actual
+        $oldErrorReporting = error_reporting();
+        // Ocultar warnings y notices mientras se envía el correo
+        error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+
+        // Obtener correo destino desde la tabla itc_contact
+        $datos = $wpdb->get_results("SELECT correo FROM {$wpdb->prefix}itc_contact WHERE id='{$id}';", ARRAY_A);
+
+        // Obtener configuración SMTP desde variables globales
+        $smtp = $wpdb->get_results(
+            "SELECT nombre, valor FROM {$wpdb->prefix}itc_tienda_variables_globales WHERE id IN (1,2,3,4);",
+            ARRAY_A
+        );
+
+        require_once __DIR__ . '/vendor/autoload.php';
         $mail = new PHPMailer(true);
 
         try {
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->SMTPDebug = SMTP::DEBUG_OFF; // DEBUG OFF
             $mail->isSMTP();
-            $mail->Host = 'sandbox.smtp.mailtrap.io';
+            $mail->Host       = $smtp[0]['valor']; // smtp_server
             $mail->SMTPAuth   = true;
-            $mail->Username = 'cd76b996175d68';
-            $mail->Password = '9912b45e7c1689';
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 2525;
+            $mail->Username   = $smtp[1]['valor']; // smtp_user
+            $mail->Password   = $smtp[2]['valor']; // smtp_password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port       = $smtp[3]['valor']; // smtp_port
+            $mail->CharSet    = 'UTF-8';
 
-            $mail->setFrom('no-reply@ticketera.local', "Ticketera");
+            $mail->setFrom($smtp[1]['valor'], "ITC ecommerce");
             $mail->addAddress($datos[0]['correo'], get_bloginfo('name'));
 
+            // Opciones SSL solo para testing/local (descomentar si es necesario)
+            $mail->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer'       => false,
+                    'verify_peer_name'  => false,
+                    'allow_self_signed' => true
+                ]
+            ];
+
             $mail->isHTML(true);
-            $mail->Subject = 'Asunto de el mail';
+            $mail->Subject = 'Consulta desde tienda ITC';
             $mail->Body = '
                 <h1>Mensaje desde sitio web</h1> <hr />
                 <ul>
@@ -270,12 +292,21 @@ if (!function_exists('itc_contact_send_correo')) {
                 </ul>';
 
             $mail->send();
-            return true;
+            $success = true;
+
         } catch (Exception $e) {
-            return false;
+            error_log("PHPMailer Error: " . $mail->ErrorInfo);
+            $success = false;
         }
+
+        // Restaurar nivel de reporte original
+        error_reporting($oldErrorReporting);
+
+        return $success;
     }
 }
+
+
 if(!function_exists('itc_contact_respuestas_ajax')){
     function itc_contact_respuestas_ajax(){
         $nonce = $_POST['nonce'];

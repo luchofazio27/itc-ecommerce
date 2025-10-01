@@ -5,13 +5,13 @@ add_action('after_setup_theme', function(){
     global $wpdb;
 
     // Limpiar carrito
-    if(isset($_POST['nonce']) and $_POST['action']=='limpiar-carrito-in'){
+    if (isset($_POST['nonce']) && (($_POST['action'] ?? '') == 'limpiar-carrito-in')) {
         $wpdb->query("update {$wpdb->prefix}itc_tienda_carro set estado_id=2 where id='".sanitize_text_field($_POST['carro_id'])."';");
         wp_safe_redirect( home_url('checkout')."?error=2" ); exit;
     }
 
     // Checkout
-    if(isset($_POST['nonce']) and $_POST['action']=='checkout-in'){
+    if (isset($_POST['nonce']) && (($_POST['action'] ?? '') == 'checkout-in')) {
         $sql="update {$wpdb->prefix}itc_tienda_carro
         set 
         estado_id=6, 

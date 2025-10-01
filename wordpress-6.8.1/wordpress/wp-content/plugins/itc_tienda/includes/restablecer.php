@@ -20,7 +20,7 @@ if(!function_exists('itc_tienda_restablecer_codigo_corto')){
 if(!function_exists('itc_tienda_restablecer_post')){
     function itc_tienda_restablecer_post(){
         // Verifica si el formulario fue enviado correctamente
-        if(isset($_POST['nonce']) and $_POST['action'] == 'restablecer-in'){ 
+        if (isset($_POST['nonce']) && (($_POST['action'] ?? '') == 'restablecer-in')) { 
             $existe = email_exists(sanitize_text_field($_POST['correo'])); // Verifica si el correo existe en WP
 
             if($existe === false){

@@ -16,7 +16,7 @@ if(!function_exists('itc_tienda_reset_codigo_corto')){
 // Procesa el POST del formulario de restablecimiento de contraseña
 if(!function_exists('itc_tienda_reset_post')){ // Define la función para procesar el formulario
     function itc_tienda_reset_post(){ // Verifica si se envió el formulario
-        if(isset($_POST['nonce']) and $_POST['action'] == 'reset-in' ){ // Verifica el nonce y la acción
+        if (isset($_POST['nonce']) && (($_POST['action'] ?? '') == 'reset-in')) { // Verifica el nonce y la acción
             if(!isset($_GET['t'])){ // Verifica si el token JWT está presente
                 wp_safe_redirect(home_url('error')); exit; // Redirige a error si no hay token
             }

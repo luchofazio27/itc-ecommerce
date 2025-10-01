@@ -13,38 +13,58 @@ if (!function_exists('itc_tienda_envia_correo')) {
     function itc_tienda_envia_correo($correo, $asunto, $mensaje)
     {
         global $wpdb;
-        $datos = $wpdb->get_results("select nombre, valor from {$wpdb->prefix}itc_tienda_variables_globales where id in(1,2,3,4);", ARRAY_A);
+        $datos = $wpdb->get_results(
+            "SELECT nombre, valor FROM {$wpdb->prefix}itc_tienda_variables_globales WHERE id IN (1,2,3,4);",
+            ARRAY_A
+        );
 
         require_once __DIR__ . '/vendor/autoload.php';
         $mail = new PHPMailer(true);
 
-
         try {
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            // No mostrar debug en frontend
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;
+
+            // Configuración SMTP
             $mail->isSMTP();
-            $mail->Host = $datos[0]['valor'];
+            $mail->Host       = $datos[0]['valor']; // smtp_server
             $mail->SMTPAuth   = true;
-            $mail->Username = $datos[1]['valor'];
-            $mail->Password = $datos[2]['valor'];
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = $datos[3]['valor'];
-            $mail->CharSet = 'UTF-8';
-            //$mail->setFrom($datos[1]['valor'], $asunto);
-            $mail->setFrom('from@example.com', 'ITC Tienda');
-            $mail->addAddress($correo, get_bloginfo('name'));
+            $mail->Username   = $datos[1]['valor']; // smtp_user
+            $mail->Password   = $datos[2]['valor']; // smtp_password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port       = $datos[3]['valor']; // smtp_port
+            $mail->CharSet    = 'UTF-8';
+
+            // Opciones SSL para localhost / certificados autofirmados
+            $mail->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer'       => false,
+                    'verify_peer_name'  => false,
+                    'allow_self_signed' => true
+                ]
+            ];
+
+            // FROM fijo (cuenta SMTP)
+            $mail->setFrom($datos[1]['valor'], 'ITC Tienda');
+
+            // Destinatario dinámico (correo del formulario)
+            $mail->addAddress($correo);
 
             $mail->isHTML(true);
-            $mail->Subject = 'Asunto de el mail';
-            $mail->Body = $mensaje;
+            $mail->Subject = $asunto;
+            $mail->Body    = $mensaje;
 
             $mail->send();
             return true;
         } catch (Exception $e) {
-        return false;
-}
-
+            // Registrar error en log de PHP para no mostrar en frontend
+            error_log("PHPMailer Error: " . $mail->ErrorInfo);
+            return false;
+        }
     }
 }
+
+
 
 if (!function_exists('itc_tienda_generate_jwt')) {
     function itc_tienda_generate_jwt($payload)
