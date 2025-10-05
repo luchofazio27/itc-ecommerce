@@ -187,7 +187,7 @@ nav.custom-header.navbar {
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+    <!-- <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
         <div class="container text-light">
             <div class="w-100 d-flex justify-content-between">
                 <div>
@@ -204,7 +204,7 @@ nav.custom-header.navbar {
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> -->
     <nav class="navbar navbar-expand-lg navbar-dark custom-header shadow-sm">
     <div class="container d-flex justify-content-between align-items-center">
 

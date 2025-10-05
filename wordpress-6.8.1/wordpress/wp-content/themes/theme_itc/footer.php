@@ -110,7 +110,7 @@ body {
                     Juan A. Garcia 1816 Paternal - Buenos Aires - CP 1416 - Republica Argentina<br>
                     Tel: 54 11 4588 0015 / Fax: 55 11 4584 9101<br>
                     Todos los derechos reservados | Desarrollado por 
-                    <a rel="sponsored" href="https://www.cesarcancino.com" target="_blank" title="Liff Domotic">LiffDomotic</a>
+                    <a rel="sponsored" href="https://www.instagram.com/liffdomotic?igsh=MWo0ajdjbXVkNzZvdw==" target="_blank" title="Liff Domotic">LiffDomotic</a>
                 </p>
             </div>
         </div>
